@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class SliderPath : MonoBehaviour
 {
     public OriginSide StartingSide;
+    public List<SliderPath> nextPath = new List<SliderPath>();
     BoxCollider2D coll;
 
     private void Start()
@@ -33,4 +35,5 @@ public class SliderPath : MonoBehaviour
     }
 
     public enum OriginSide { None, Left, Top, Bottom, Right }
+
 }

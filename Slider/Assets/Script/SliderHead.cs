@@ -46,6 +46,16 @@ public class SliderHead : MonoBehaviour
 
     private void OnMouseDrag()
     {
+        Vector3 flatMousePos = Input.mousePosition;
+        flatMousePos.z = transform.position.z;
+        Vector3 inputPos = Camera.main.ScreenToWorldPoint(flatMousePos + transform.position);
 
+        float angle = Vector3.Angle(inputPos, tilesChecked.Last().nextPath[0].transform.position);
+        Debug.Log(angle);
+        Vector3 dir = inputPos * Mathf.Cos(angle);
+        Debug.DrawLine(transform.position, dir);
+
+        //if (Vector3.SignedAngle(dir, tilesChecked.Last().nextPath[0].transform.position, Vector3.forward))
+            transform.position = Vector3.Lerp(transform.position, dir, 0);
     }
 }
