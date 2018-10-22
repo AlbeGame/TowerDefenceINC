@@ -5,11 +5,11 @@ public class SliderPath : MonoBehaviour
 {
     public OriginSide StartingSide;
     public List<SliderPath> nextPath = new List<SliderPath>();
-    BoxCollider2D coll;
+    BoxCollider coll;
 
     private void Start()
     {
-        coll = GetComponent<BoxCollider2D>();
+        coll = GetComponent<BoxCollider>();
     }
 
     public Vector3 GetOriginSideCenter()
@@ -35,5 +35,4 @@ public class SliderPath : MonoBehaviour
     }
 
     public enum OriginSide { None, Left, Top, Bottom, Right }
-
 }

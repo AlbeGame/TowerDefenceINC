@@ -6,7 +6,7 @@ using UnityEngine;
 public class SliderHead : MonoBehaviour
 {
     LineRenderer lineRend;
-    CircleCollider2D coll;
+    CapsuleCollider coll;
 
     List<SliderPath> tilesChecked = new List<SliderPath>();
     Vector3 lineStartPosition;
@@ -15,7 +15,7 @@ public class SliderHead : MonoBehaviour
     void Start()
     {
         lineRend = GetComponent<LineRenderer>();
-        coll = GetComponent<CircleCollider2D>();
+        coll = GetComponent<CapsuleCollider>();
     }
 
     private void LateUpdate()
@@ -29,16 +29,16 @@ public class SliderHead : MonoBehaviour
         {
             lineRend.SetPosition(i, tilesChecked[i].transform.position);
         }
-        lineRend.SetPosition(lineRend.positionCount -1, transform.position);
+        lineRend.SetPosition(lineRend.positionCount - 1, transform.position);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay(Collider collision)
     {
         SliderPath sliderP = collision.GetComponent<SliderPath>();
         if (tilesChecked.Contains(sliderP))
             return;
 
-        if(Vector3.Distance(sliderP.transform.position, transform.position) < coll.radius)
+        if (Vector3.Distance(sliderP.transform.position, transform.position) < coll.radius)
         {
             tilesChecked.Add(sliderP);
         }
@@ -46,16 +46,17 @@ public class SliderHead : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        Vector3 flatMousePos = Input.mousePosition;
-        flatMousePos.z = transform.position.z;
-        Vector3 inputPos = Camera.main.ScreenToWorldPoint(flatMousePos + transform.position);
+        Vector3 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        inputPos.z = transform.position.z;
+        inputPos = inputPos - transform.position;
 
-        float angle = Vector3.Angle(inputPos, tilesChecked.Last().nextPath[0].transform.position);
-        Debug.Log(angle);
-        Vector3 dir = inputPos * Mathf.Cos(angle);
-        Debug.DrawLine(transform.position, dir);
+        Vector3 pathDir = tilesChecked.Last().nextPath[0].transform.position - transform.position;
+        Vector3 dir = Vector3.Project(inputPos, pathDir);
+        if (Vector3.Angle(dir, pathDir) > 0)
+        {
+            dir = Vector3.zero;
+        }
 
-        //if (Vector3.SignedAngle(dir, tilesChecked.Last().nextPath[0].transform.position, Vector3.forward))
-            transform.position = Vector3.Lerp(transform.position, dir, 0);
+        transform.position = Vector3.Lerp(transform.position, transform.position + dir, 0.5f);
     }
 }
