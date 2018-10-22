@@ -63,9 +63,29 @@ namespace GameCore
             transform.position = Vector3.Lerp(transform.position, transform.position + dir, 0.5f);
         }
 
+        Tween backPathTween;
         private void OnMouseUp()
         {
+            MoveBackward();
+        }
 
+        private void MoveBackward()
+        {
+            Vector3[] backPath = new Vector3[tilesChecked.Count - 1];
+            for (int i = tilesChecked.Count-2; i >= 0; i--)
+            {
+                backPath[backPath.Length -1-i] = tilesChecked[i].transform.position;
+            }
+
+            coll.enabled = false;
+
+            backPathTween = transform.DOPath(backPath, backPath.Length*0.1f);
+            backPathTween.OnWaypointChange((int _wp) =>
+            {
+                tilesChecked.RemoveAt(tilesChecked.Count - 1 - _wp);
+            });
+
+            backPathTween.OnComplete(() => { coll.enabled = true; });
         }
     }
 }

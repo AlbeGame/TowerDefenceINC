@@ -21,10 +21,11 @@ namespace GameCore
                 Gizmos.color = Color.red;
                 foreach (SliderPath spElem in SliderPathElements)
                 {
-                    foreach (SliderPath spNext in spElem.nextPath)
-                    {
-                        Gizmos.DrawLine(spElem.transform.position, spNext.transform.position);
-                    }
+                    if (spElem.nextPath.Count > 0)
+                        foreach (SliderPath spNext in spElem.nextPath)
+                        {
+                            Gizmos.DrawLine(spElem.transform.position, spNext.transform.position);
+                        }
                 }
             }
         }
