@@ -1,38 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class SliderPath : MonoBehaviour
+namespace GameCore
 {
-    public OriginSide StartingSide;
-    public List<SliderPath> nextPath = new List<SliderPath>();
-    BoxCollider coll;
-
-    private void Start()
+    public class SliderPath : MonoBehaviour
     {
-        coll = GetComponent<BoxCollider>();
-    }
+        public OriginSide StartingSide;
+        public List<SliderPath> nextPath = new List<SliderPath>();
+        BoxCollider coll;
 
-    public Vector3 GetOriginSideCenter()
-    {
-        switch (StartingSide)
+        private void Start()
         {
-            case OriginSide.None:
-                return transform.position;
-            case OriginSide.Left:
-                return transform.position + (Vector3.left * coll.size.x)/2;
-            case OriginSide.Top:
-                return transform.position + (Vector3.up * coll.size.y)/ 2;
-            case OriginSide.Bottom:
-                return transform.position + (Vector3.down * coll.size.y)/ 2;
-            case OriginSide.Right:
-                return transform.position + (Vector3.right * coll.size.x)/ 2;
-            default:
-                break;
+            coll = GetComponent<BoxCollider>();
         }
 
-        //default exit
-        return transform.position;
-    }
+        public Vector3 GetOriginSideCenter()
+        {
+            switch (StartingSide)
+            {
+                case OriginSide.None:
+                    return transform.position;
+                case OriginSide.Left:
+                    return transform.position + (Vector3.left * coll.size.x) / 2;
+                case OriginSide.Top:
+                    return transform.position + (Vector3.up * coll.size.y) / 2;
+                case OriginSide.Bottom:
+                    return transform.position + (Vector3.down * coll.size.y) / 2;
+                case OriginSide.Right:
+                    return transform.position + (Vector3.right * coll.size.x) / 2;
+                default:
+                    break;
+            }
 
-    public enum OriginSide { None, Left, Top, Bottom, Right }
+            //default exit
+            return transform.position;
+        }
+
+        public enum OriginSide { None, Left, Top, Bottom, Right }
+    }
 }

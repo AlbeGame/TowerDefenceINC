@@ -2,25 +2,29 @@
 using System.Linq;
 using System.Collections.Generic;
 
-public class Debugger : MonoBehaviour {
-
-    List<SliderPath> SliderPathElements = new List<SliderPath>();
-
-    private void Start()
+namespace GameCore
+{
+    public class Debugger : MonoBehaviour
     {
-        SliderPathElements = FindObjectsOfType<SliderPath>().ToList();
-    }
 
-    private void OnDrawGizmos()
-    {
-        if(SliderPathElements.Count > 0)
+        List<SliderPath> SliderPathElements = new List<SliderPath>();
+
+        private void Start()
         {
-            Gizmos.color = Color.red;
-            foreach (SliderPath spElem in SliderPathElements)
+            SliderPathElements = FindObjectsOfType<SliderPath>().ToList();
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (SliderPathElements.Count > 0)
             {
-                foreach (SliderPath spNext in spElem.nextPath)
+                Gizmos.color = Color.red;
+                foreach (SliderPath spElem in SliderPathElements)
                 {
-                    Gizmos.DrawLine(spElem.transform.position, spNext.transform.position);
+                    foreach (SliderPath spNext in spElem.nextPath)
+                    {
+                        Gizmos.DrawLine(spElem.transform.position, spNext.transform.position);
+                    }
                 }
             }
         }
