@@ -46,7 +46,7 @@ namespace GameCore
                 tilesChecked.Add(sliderP);
             }
         }
-
+        Tween forwardTween;
         private void OnMouseDrag()
         {
             Vector3 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -60,10 +60,12 @@ namespace GameCore
                 dir = Vector3.zero;
             }
 
-            transform.position = Vector3.Lerp(transform.position, transform.position + dir, 0.5f);
+            backwardTween.Complete();
+            forwardTween = transform.DOMove(transform.position + dir, 5f);
+            forwardTween.SetSpeedBased();
         }
 
-        Tween backPathTween;
+        Tween backwardTween;
         private void OnMouseUp()
         {
             MoveBackward();
@@ -71,22 +73,31 @@ namespace GameCore
 
         private void MoveBackward()
         {
-            Vector3[] backPath = new Vector3[tilesChecked.Count - 1];
+            Vector3[] backPath = new Vector3[tilesChecked.Count];
             for (int i = 0; i < backPath.Length; i++)
             {
-                backPath[i] = tilesChecked[i+1].transform.position;
+                backPath[i] = tilesChecked[i].transform.position;
             }
-            backPath.Reverse();
+            backPath = backPath.Reverse().ToArray();
 
+            forwardTween.Kill();
             coll.enabled = false;
 
-            backPathTween = transform.DOPath(backPath, backPath.Length*0.1f);
-            backPathTween.OnWaypointChange((int _wp) =>
+            backwardTween = transform.DOPath(backPath, backPath.Length*0.1f);
+            backwardTween.SetAutoKill();
+            backwardTween.OnWaypointChange((int _wp) =>
             {
-                tilesChecked.RemoveAt(tilesChecked.Count - 1 - _wp);
+                if(tilesChecked.Count > 1)
+                {
+                    Debug.Log("Moved to: " + backPath[_wp]);
+                    tilesChecked.RemoveAt(backPath.Length - 1 - _wp);
+                }
             });
 
-            backPathTween.OnComplete(() => { coll.enabled = true; });
+            backwardTween.OnKill(() => 
+            {
+                coll.enabled = true;
+            });
         }
     }
 }
