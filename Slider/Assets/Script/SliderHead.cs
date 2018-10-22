@@ -72,10 +72,11 @@ namespace GameCore
         private void MoveBackward()
         {
             Vector3[] backPath = new Vector3[tilesChecked.Count - 1];
-            for (int i = tilesChecked.Count-2; i >= 0; i--)
+            for (int i = 0; i < backPath.Length; i++)
             {
-                backPath[backPath.Length -1-i] = tilesChecked[i].transform.position;
+                backPath[i] = tilesChecked[i+1].transform.position;
             }
+            backPath.Reverse();
 
             coll.enabled = false;
 
