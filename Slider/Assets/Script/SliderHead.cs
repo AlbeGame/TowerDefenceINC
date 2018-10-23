@@ -46,6 +46,7 @@ namespace GameCore
                 tilesChecked.Add(sliderP);
             }
         }
+
         Tween forwardTween;
         private void OnMouseDrag()
         {
