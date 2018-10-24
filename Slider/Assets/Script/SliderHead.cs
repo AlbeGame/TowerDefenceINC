@@ -5,34 +5,16 @@ using DG.Tweening;
 
 namespace GameCore
 {
-    [RequireComponent(typeof(LineRenderer))]
     public class SliderHead : MonoBehaviour
     {
-        LineRenderer lineRend;
         CapsuleCollider coll;
 
         List<SliderPath> tilesChecked = new List<SliderPath>();
-        Vector3 lineStartPosition;
 
         // Use this for initialization
         void Start()
         {
-            lineRend = GetComponent<LineRenderer>();
             coll = GetComponent<CapsuleCollider>();
-        }
-
-        private void LateUpdate()
-        {
-            if (tilesChecked == null || tilesChecked.Count <= 0)
-                return;
-
-            lineRend.positionCount = tilesChecked.Count + 1;
-            lineRend.SetPosition(0, tilesChecked[0].GetOriginSideCenter());
-            for (int i = 1; i < tilesChecked.Count; i++)
-            {
-                lineRend.SetPosition(i, tilesChecked[i].transform.position);
-            }
-            lineRend.SetPosition(lineRend.positionCount - 1, transform.position);
         }
 
         private void OnTriggerStay(Collider collision)
@@ -44,6 +26,7 @@ namespace GameCore
             if (Vector3.Distance(sliderP.transform.position, transform.position) < coll.radius)
             {
                 tilesChecked.Add(sliderP);
+                sliderP.MarkAsPassed(true);
             }
         }
 
@@ -90,8 +73,9 @@ namespace GameCore
             {
                 if(tilesChecked.Count > 1)
                 {
-                    Debug.Log("Moved to: " + backPath[_wp]);
-                    tilesChecked.RemoveAt(backPath.Length - 1 - _wp);
+                    SliderPath tile = tilesChecked[backPath.Length - 1 - _wp];
+                    tile.MarkAsPassed(false);
+                    tilesChecked.Remove(tile);
                 }
             });
 

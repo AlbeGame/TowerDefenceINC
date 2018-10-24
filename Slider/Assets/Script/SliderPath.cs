@@ -8,10 +8,12 @@ namespace GameCore
         public OriginSide StartingSide;
         public List<SliderPath> nextPath = new List<SliderPath>();
         BoxCollider coll;
+        MeshRenderer mRenderer;
 
         private void Start()
         {
             coll = GetComponent<BoxCollider>();
+            mRenderer = GetComponent<MeshRenderer>();
         }
 
         public Vector3 GetOriginSideCenter()
@@ -34,6 +36,14 @@ namespace GameCore
 
             //default exit
             return transform.position;
+        }
+
+        public void MarkAsPassed(bool _passed)
+        {
+            if (_passed)
+                mRenderer.material.color = Color.grey;
+            else
+                mRenderer.material.color = Color.white;
         }
 
         public enum OriginSide { None, Left, Top, Bottom, Right }

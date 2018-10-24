@@ -369,7 +369,7 @@ Prefab:
         type: 2}
       propertyPath: nextPath.Array.data[0]
       value: 
-      objectReference: {fileID: 1985198669}
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 880df479e03fafe45b0fc7af77ba3f5d, type: 2}
