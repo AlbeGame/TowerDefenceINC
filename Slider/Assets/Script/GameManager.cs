@@ -8,9 +8,9 @@ namespace GameCore
         public static GameManager I { get; private set; }
 
         [SerializeField]
-        private SliderHead sliderH;
+        private SliderHead sliderH_prefab;
         private SliderHead sliderH_I;
-
+        [SerializeField]
         private SliderPath sliderP_Start;
 
         private void Awake()
@@ -26,10 +26,23 @@ namespace GameCore
             //-------------
         }
 
+        private void Start()
+        {
+            ResetLevel();
+        }
+
+        public void ResetLevel()
+        {
+            if (sliderH_I)
+                DestroyImmediate(sliderH_I.gameObject);
+
+            DeploySliderHead();
+        }
+
         void DeploySliderHead()
         {
-            if (sliderH != null && sliderH_I == null)
-                sliderH_I = Instantiate<SliderHead>(sliderH,sliderP_Start.transform.position, sliderP_Start.transform.rotation);
+            if (sliderH_prefab != null && sliderH_I == null)
+                sliderH_I = Instantiate<SliderHead>(sliderH_prefab,sliderP_Start.transform.position, sliderP_Start.transform.rotation);
         }
     }
 }
