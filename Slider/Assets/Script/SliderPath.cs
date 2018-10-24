@@ -5,7 +5,11 @@ namespace GameCore
 {
     public class SliderPath : MonoBehaviour
     {
+        #region Level datas
         public OriginSide StartingSide;
+        public int NextLevel = -1;
+        #endregion
+
         public List<SliderPath> nextPath = new List<SliderPath>();
         BoxCollider coll;
         MeshRenderer mRenderer;
@@ -16,6 +20,15 @@ namespace GameCore
             mRenderer = GetComponent<MeshRenderer>();
         }
 
+        public void MarkAsPassed(bool _passed)
+        {
+            if (_passed)
+                mRenderer.material.color = Color.grey;
+            else
+                mRenderer.material.color = Color.white;
+        }
+
+        #region Edge management (not used)
         public Vector3 GetOriginSideCenter()
         {
             switch (StartingSide)
@@ -38,14 +51,7 @@ namespace GameCore
             return transform.position;
         }
 
-        public void MarkAsPassed(bool _passed)
-        {
-            if (_passed)
-                mRenderer.material.color = Color.grey;
-            else
-                mRenderer.material.color = Color.white;
-        }
-
         public enum OriginSide { None, Left, Top, Bottom, Right }
+        #endregion
     }
 }

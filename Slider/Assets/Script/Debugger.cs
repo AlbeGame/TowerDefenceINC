@@ -9,15 +9,19 @@ namespace GameCore
 
         List<SliderPath> SliderPathElements = new List<SliderPath>();
 
-        private void Start()
+        private void OnLevelWasLoaded(int level)
         {
             SliderPathElements = FindObjectsOfType<SliderPath>().ToList();
+        }
+
+        private void Start()
+        {
         }
 
         private void OnGUI()
         {
             if (GUI.Button(new Rect(10, 10, 50, 30), "Reset"))
-                GameManager.I.ResetLevel();
+                GameManager.I.LevelMng.ResetLevel();
         }
 
         private void OnDrawGizmos()

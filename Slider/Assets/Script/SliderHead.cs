@@ -12,11 +12,12 @@ namespace GameCore
         List<SliderPath> tilesChecked = new List<SliderPath>();
 
         // Use this for initialization
-        void Start()
+        void Awake()
         {
             coll = GetComponent<CapsuleCollider>();
         }
 
+        //Evaluate current tile
         private void OnTriggerStay(Collider collision)
         {
             SliderPath sliderP = collision.GetComponent<SliderPath>();
@@ -27,11 +28,30 @@ namespace GameCore
             {
                 tilesChecked.Add(sliderP);
                 sliderP.MarkAsPassed(true);
+                if(sliderP.NextLevel > -1)
+                {
+                    GameManager.I.ChangeLevel(sliderP.NextLevel);
+                }
             }
         }
 
-        Tween forwardTween;
+        //Trigger the forward movement
         private void OnMouseDrag()
+        {
+            MoveForward();
+        }
+
+        //Trigger the backward movement
+        private void OnMouseUp()
+        {
+            MoveBackward();
+        }
+
+        Tween forwardTween;
+        /// <summary>
+        /// Manage the forward movement
+        /// </summary>
+        private void MoveForward()
         {
             Vector3 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             inputPos.z = transform.position.z;
@@ -50,11 +70,9 @@ namespace GameCore
         }
 
         Tween backwardTween;
-        private void OnMouseUp()
-        {
-            MoveBackward();
-        }
-
+        /// <summary>
+        /// Manage the backward movement
+        /// </summary>
         private void MoveBackward()
         {
             Vector3[] backPath = new Vector3[tilesChecked.Count];
