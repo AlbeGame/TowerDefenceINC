@@ -109,5 +109,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartingSide: 1
+  NextLevel: -1
   nextPath:
   - {fileID: 0}

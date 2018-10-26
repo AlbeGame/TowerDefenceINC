@@ -92,6 +92,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b3168d49aa7d84bb97b666a622c596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderH_prefab: {fileID: 114045885695696690, guid: 9e20716c19320c84e9790e09067c37a3,
-    type: 2}
-  sliderP_Start: {fileID: 0}
+  LevelMng: {fileID: 0}
