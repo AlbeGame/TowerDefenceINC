@@ -4,31 +4,34 @@ namespace GameCore
 {
     public class InputManager : MonoBehaviour
     {
-
-        [SerializeField]
-        Rigidbody2D rigidFather;
-        CircleCollider2D myCollider;
-        public float ForceMultiplier;
+        Rigidbody2D rigidB;
+        public float ForceMultiplier = 1;
 
         // Use this for initialization
         void Start()
         {
-            //rigidFather = GetComponentInParent<Rigidbody2D>();
-            myCollider = GetComponent<CircleCollider2D>();
-
             Vector3 cameraPos = Camera.main.transform.position;
-            transform.position = new Vector3(transform.position.x, transform.position.y, cameraPos.z + 1);
+            rigidB = GetComponent<Rigidbody2D>();
         }
 
-        private void OnMouseDrag()
+        private void FixedUpdate()
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = rigidFather.transform.position.z;
-            Vector2 dir = mousePos - rigidFather.transform.position;
+#if UNITY_ADROID
+            if (Input.touchCount > 0)
+                ApplyMovement(Input.touches[0].position);
+#else
+            if (Input.GetMouseButton(0))
+                ApplyMovement(Input.mousePosition);
+#endif
+        }
 
-            rigidFather.AddForce(dir.normalized * Mathf.Floor(1 / dir.magnitude));
+        void ApplyMovement(Vector3 _inputPos)
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(_inputPos);
+            mousePos.z = transform.position.z;
+            Vector2 dir = mousePos - transform.position;
 
-            Debug.DrawLine(rigidFather.transform.position, dir.normalized);
+            rigidB.AddForce(dir.normalized * ForceMultiplier);
         }
     }
 }
