@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cinemachine;
 
 namespace GameCore
 {
@@ -8,12 +9,15 @@ namespace GameCore
         GameObject playerPrefab;
         GameObject playerInstance;
         [SerializeField]
-        Transform startPosition;
+        Transform defaultStartPosition;
+
+        CinemachineVirtualCamera vCam;
 
         void Start()
         {
             //Inject itself into GameManager
             GameManager.I.LevelMng = this;
+            vCam = FindObjectOfType<CinemachineVirtualCamera>();
 
             //Run level Setup
             ResetLevel();
@@ -47,7 +51,10 @@ namespace GameCore
         void DeployPlayer()
         {
             if (playerPrefab != null)
-                playerInstance = Instantiate(playerPrefab, startPosition.position, startPosition.rotation);
+            {
+                playerInstance = Instantiate(playerPrefab, defaultStartPosition.position, defaultStartPosition.rotation);
+                vCam.Follow = playerInstance.transform;
+            }
         }
     }
 }
