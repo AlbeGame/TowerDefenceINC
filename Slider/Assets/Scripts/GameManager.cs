@@ -8,6 +8,7 @@ namespace GameCore
         public static GameManager I { get; private set; }
 
         public LevelManager LevelMng;
+        public UI_Controller UI_Ctrl;
 
         private void Awake()
         {
