@@ -33638,6 +33638,41 @@ Prefab:
       propertyPath: m_FillCenter
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114974664106629706, guid: d47be67a43ce580488e4472b14e5cab0,
+        type: 2}
+      propertyPath: defaultIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 62c6db316b548884c993b598c0140500,
+        type: 3}
+    - target: {fileID: 114623063077848464, guid: d47be67a43ce580488e4472b14e5cab0,
+        type: 2}
+      propertyPath: defaultIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 62c6db316b548884c993b598c0140500,
+        type: 3}
+    - target: {fileID: 114909979433640256, guid: d47be67a43ce580488e4472b14e5cab0,
+        type: 2}
+      propertyPath: defaultIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 62c6db316b548884c993b598c0140500,
+        type: 3}
+    - target: {fileID: 114464420835338948, guid: d47be67a43ce580488e4472b14e5cab0,
+        type: 2}
+      propertyPath: defaultIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 62c6db316b548884c993b598c0140500,
+        type: 3}
+    - target: {fileID: 114602494243019990, guid: d47be67a43ce580488e4472b14e5cab0,
+        type: 2}
+      propertyPath: defaultIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 62c6db316b548884c993b598c0140500,
+        type: 3}
+    - target: {fileID: 114653101848595902, guid: d47be67a43ce580488e4472b14e5cab0,
+        type: 2}
+      propertyPath: HideOffSet
+      value: 120
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d47be67a43ce580488e4472b14e5cab0, type: 2}
   m_IsPrefabAsset: 0
