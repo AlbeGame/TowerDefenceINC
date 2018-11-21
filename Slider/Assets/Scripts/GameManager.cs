@@ -23,6 +23,11 @@ namespace GameCore
             //-------------
         }
 
+        private void Start()
+        {
+            UI_Ctrl = GetComponentInChildren<UI_Controller>();
+        }
+
         public void ChangeLevel(int _levelID)
         {
             SceneManager.LoadScene(_levelID);
