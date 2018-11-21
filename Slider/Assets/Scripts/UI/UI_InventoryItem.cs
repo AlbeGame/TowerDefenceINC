@@ -5,7 +5,11 @@ using UnityEngine;
 namespace GameCore { 
 public class UI_InventoryItem : MonoBehaviour {
 
+        [SerializeField]
+        Sprite defaultIcon;
+
         Image img;
+        Data_Item data;
 
         private void Start()
         {
@@ -16,7 +20,14 @@ public class UI_InventoryItem : MonoBehaviour {
 
         public void Clean()
         {
-            img.color = Color.clear;
+            img.sprite = defaultIcon;
+        }
+
+        public void Item_Init(Data_Item _data)
+        {
+            data = _data;
+
+            img.sprite = data.Icon;
         }
     }
 }
