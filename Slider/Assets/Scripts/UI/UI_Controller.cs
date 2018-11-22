@@ -1,24 +1,24 @@
-﻿using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GameCore {
     public class UI_Controller : MonoBehaviour
     {
+        List<UI_CustomButton> buttons = new List<UI_CustomButton>();
 
-        [SerializeField]
-        UI_CustomButton Btn_Right;
-        [SerializeField]
-        UI_CustomButton Btn_Left;
-
-        public void AddListenerToBtn_Right(UI_CustomButton.CustomButtonDelegate _callBack)
+        private void Start()
         {
-            Btn_Right.OnBtnDown = _callBack;
+            buttons = GetComponentsInChildren<UI_CustomButton>().ToList();
         }
 
-        public void AddListenerToBtn_Left(UI_CustomButton.CustomButtonDelegate _callBack)
+        public void AddListenerToBtn(UI_CustomButton.CustomButtonDelegate _callBack, UI_CustomButton.ButtonType _type)
         {
-            Btn_Left.OnBtnDown = _callBack;
+            foreach (UI_CustomButton btn in buttons)
+            {
+                if (btn.BtnType == _type)
+                    btn.OnBtnDown = _callBack;
+            }
         }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 namespace GameCore {
     public class UI_CustomButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
+        public ButtonType BtnType;
+
         public delegate void CustomButtonDelegate();
         public CustomButtonDelegate OnBtnDown;
 
@@ -32,6 +34,11 @@ namespace GameCore {
         public void OnPointerExit(PointerEventData eventData)
         {
             isPointerIn = false;
+        }
+
+        public enum ButtonType
+        {
+            Up, Left, Right
         }
     }
 }

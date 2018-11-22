@@ -6,25 +6,56 @@ using UnityEngine.EventSystems;
 namespace GameCore {
     public class Player_MovementCtrl : MonoBehaviour
     {
+        Rigidbody2D rigidB;
+        public float JumpForce = 5;
+        public float SlideForce = 5;
+
+
         private void Start()
         {
-            GameManager.I.UI_Ctrl.AddListenerToBtn_Left(() => MoveLeft());
-            GameManager.I.UI_Ctrl.AddListenerToBtn_Right(() => MoveRight());
+            rigidB = GetComponent<Rigidbody2D>();
+
+            GameManager.I.UI_Ctrl.AddListenerToBtn(() => MoveLeft(), UI_CustomButton.ButtonType.Left);
+            GameManager.I.UI_Ctrl.AddListenerToBtn(() => MoveRight(), UI_CustomButton.ButtonType.Right);
+            GameManager.I.UI_Ctrl.AddListenerToBtn(() => Jump(), UI_CustomButton.ButtonType.Up);
         }
 
-        public void Move(float _xAxisFactor)
+        private void FixedUpdate()
         {
-            transform.position = new Vector3(transform.position.x + _xAxisFactor, transform.position.y, transform.position.z);
+            UpdateAirborneStatus();
         }
+
+        //public void Move(float _xAxisFactor)
+        //{
+        //    transform.position = new Vector3(transform.position.x + _xAxisFactor, transform.position.y, transform.position.z);
+        //}
 
         public void MoveRight()
         {
-            Move(0.01f);
+            rigidB.AddForce(Vector2.right * SlideForce, ForceMode2D.Force);
         }
 
         public void MoveLeft()
         {
-            Move(-0.01f);
+            rigidB.AddForce(-Vector2.right * SlideForce, ForceMode2D.Force);
+        }
+
+        float yPosValue;
+        bool isAirborne;
+        void UpdateAirborneStatus()
+        {
+            if (yPosValue != transform.position.y)
+                isAirborne = true;
+            else
+                isAirborne = false;
+
+            yPosValue = transform.position.y;
+        }
+
+        public void Jump()
+        {
+            if(!isAirborne)
+                rigidB.AddForce(Vector2.up * JumpForce ,ForceMode2D.Impulse);
         }
     }
 }
