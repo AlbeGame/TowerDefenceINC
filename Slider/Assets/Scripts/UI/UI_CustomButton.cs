@@ -38,7 +38,7 @@ namespace GameCore {
 
         public enum ButtonType
         {
-            Up, Left, Right
+            Up, Left, Right, Central
         }
     }
 }

@@ -38,6 +38,7 @@ public class Player_Manager : MonoBehaviour {
             gameMng.UI_Ctrl.AddListenerToBtn(() => GoLeft(), UI_CustomButton.ButtonType.Left);
             gameMng.UI_Ctrl.AddListenerToBtn(() => GoRight(), UI_CustomButton.ButtonType.Right);
             gameMng.UI_Ctrl.AddListenerToBtn(() => Jump(), UI_CustomButton.ButtonType.Up);
+            gameMng.UI_Ctrl.AddListenerToBtn(() => Shoot(), UI_CustomButton.ButtonType.Central);
         }
         #region Init
         private void MovementInit()

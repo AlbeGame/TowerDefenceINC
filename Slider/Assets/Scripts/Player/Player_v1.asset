@@ -13,4 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JumpForce: 5
   SlideForce: 5
-  ShootForce: 1
+  ShootForce: 100
+  FireRate: 0.5

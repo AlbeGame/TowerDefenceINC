@@ -8,5 +8,6 @@ namespace GameCore {
         public float SlideForce = 5;
 
         public float ShootForce = 1;
+        public float FireRate = 1;
     }
 }
