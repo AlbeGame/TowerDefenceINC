@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bd18d1983494143ad83f4b1ab33771, type: 3}
   m_Name: Player_v1
   m_EditorClassIdentifier: 
-  JumpForce: 5
-  SlideForce: 5
+  JumpForce: 3
+  SlideForce: 10
   ShootForce: 100
   FireRate: 0.5
